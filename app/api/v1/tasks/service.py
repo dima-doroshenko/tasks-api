@@ -1,7 +1,4 @@
 import uuid
-from typing import Optional
-
-from fastapi import Depends
 
 from app.exc import NotFoundError
 

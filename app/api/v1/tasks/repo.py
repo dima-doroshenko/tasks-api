@@ -1,11 +1,8 @@
 import uuid
 
-from fastapi import Depends
-from sqlalchemy import func
+from sqlalchemy import func, update
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-
-from app.dep import get_db
 
 from .models import Task
 from .models import TaskStatus
@@ -52,14 +49,17 @@ class TaskRepository:
         description: str | None = None,
         status: TaskStatus | None = None,
     ) -> Task:
-        if title is not None:
-            task.title = title
-        if description is not None:
-            task.description = description
-        if status is not None:
-            task.status = status
-        await self.session.flush()
-        return task
+        update_dict = {
+            "title": title,
+            "description": description,
+            "status": status,
+        }
+        stmt = (
+            update(Task)
+            .values({k: v for k, v in update_dict.items() if v})
+            .returning(Task)
+        )
+        return await self.session.scalar(stmt)
 
     async def delete(self, task: Task) -> None:
         await self.session.delete(task)
