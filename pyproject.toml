@@ -4,4 +4,35 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "asyncpg>=0.30.0",
+    "fastapi>=0.116.1",
+    "pydantic-settings>=2.10.1",
+    "ruff>=0.12.9",
+    "sqlalchemy>=2.0.43",
+    "uvicorn>=0.35.0",
+]
+
+[tool.black]
+line-length = 79
+
+[tool.isort]
+src_paths = ["app"]
+line_length = 79
+profile = "black"
+
+[tool.ruff.lint]
+select = [
+    "FAST",
+    "C", "B9",
+    "E", "W",
+    "F",
+    "UP",
+    "B",
+    "SIM",
+    "I",
+]
+ignore = ["E203", "E266", "E501", "C408", "B010", "F401", "C901", "B008", "B904", "FAST002"]
+
+[tool.ruff.lint.isort]
+force-single-line = true
