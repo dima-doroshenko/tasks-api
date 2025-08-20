@@ -11,3 +11,10 @@ docker compose up --build
 ```
 
 Open **http://localhost:8000/docs**
+
+### Run Tests
+
+```bash
+uv sync
+pytest -s -v
+```
