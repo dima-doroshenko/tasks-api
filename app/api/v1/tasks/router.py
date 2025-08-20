@@ -78,7 +78,9 @@ async def update_task(
             status=payload.status,
         )
     except NotFoundError:
-        raise HTTPException(status_code=404, detail="Task not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Task not found"
+        )
 
 
 @router.delete(
@@ -91,4 +93,6 @@ async def delete_task(
     try:
         await service.delete_task(task_id)
     except NotFoundError:
-        raise HTTPException(status_code=404, detail="Task not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Task not found"
+        )
