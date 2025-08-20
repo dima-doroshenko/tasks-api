@@ -56,6 +56,7 @@ class TaskRepository:
         }
         stmt = (
             update(Task)
+            .where(Task.id == task.id)
             .values({k: v for k, v in update_dict.items() if v})
             .returning(Task)
         )
